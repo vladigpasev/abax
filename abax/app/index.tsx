@@ -1,10 +1,11 @@
 import { Text, View } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "tamagui";
 
 export default function Index() {
   return (
-    <SafeAreaProvider>
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </SafeAreaProvider>
+    <SafeAreaView>
+      
+    </SafeAreaView>
   );
 }

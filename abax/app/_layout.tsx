@@ -1,9 +1,23 @@
-import { Stack } from "expo-router";
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { Stack } from 'expo-router'
+import { useColorScheme } from 'react-native'
+import { TamaguiProvider } from 'tamagui'
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { tamaguiConfig } from '../tamagui.config'
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme()
+
   return (
-    <Stack>
-      <Stack.Screen name="index" />
-    </Stack>
-  );
+    <SafeAreaProvider>
+      {/* @ts-ignore */}
+      <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+          </Stack>
+        </ThemeProvider>
+      </TamaguiProvider>
+    </SafeAreaProvider>
+  )
 }
