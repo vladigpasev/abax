@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Input, Text, View, YGroup } from 'tamagui'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from 'expo-router';
 
 export default function Join() {
     const [code, setCode] = useState('');
@@ -19,7 +18,6 @@ export default function Join() {
     const [loading, setLoading] = useState(false);
 
     const router = useRouter();
-    const navigation = useNavigation()
 
     const handleCodeChange = (text: string) => {
         setCode(text);
@@ -59,7 +57,7 @@ export default function Join() {
     const findGroup = (code: string) => {
         // Make the API request here using the code
         // Example:
-        fetch(`http://192.168.50.247:3000/api/find`, {
+        fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/find`, {
             method: 'POST',
             body: JSON.stringify({ joinCode: code }),
             headers: {
@@ -71,7 +69,7 @@ export default function Join() {
                 // Handle the API response
                 console.log(data);
                 if (data.guide) {
-                    router.replace('/guide');
+                    while (router.canGoBack()) { router.back() } router.replace("/guide");
                 }
                 if (data.success === true) {
                     setSuccess(data.success);
@@ -90,7 +88,7 @@ export default function Join() {
     const joinGroup = () => {
         // Make the API request here using the code
         // Example:
-        fetch(`http://192.168.50.247:3000/api/add-participant`, {
+        fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/add-participant`, {
             method: 'POST',
             body: JSON.stringify({ fullName, phone, email, joinCode: code, resNumber }),
             headers: {

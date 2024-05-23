@@ -1,16 +1,18 @@
+import React from 'react';
 import { Stack, Tabs } from 'expo-router';
-import React, { useEffect } from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { GroupProvider } from '@/context/GroupContext';
+import { SignOutBtn } from '@/components/SignOutBtn';
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
 
     return (
-        <>
-            <Stack.Screen options={{ title: 'Информация за група' }} />
+        <GroupProvider>
+            <Stack.Screen options={{ title: 'Информация за група', headerRight: () => <SignOutBtn /> }} />
             <Tabs
                 screenOptions={{
                     tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -35,6 +37,6 @@ export default function TabLayout() {
                     }}
                 />
             </Tabs>
-        </>
+        </GroupProvider>
     );
 }

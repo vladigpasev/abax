@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, ActivityIndicator } from 'react-native';
 
-export function withAuthCheck(Component: any) {
+export function withAuthGuideCheck(Component: any) {
   return function AuthCheckWrapper(props: any) {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
@@ -19,12 +19,12 @@ export function withAuthCheck(Component: any) {
 
           if (token) {
             if (guide) {
-              router.replace('/guide');
+              router.replace('/guide/groups');
             } else {
               router.replace('/group');
             }
           } else {
-            setLoading(false);
+            router.replace('/guide/login');
           }
         } catch (error) {
           console.error('Error checking token:', error);

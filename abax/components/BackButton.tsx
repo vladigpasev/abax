@@ -12,6 +12,6 @@ export const BackButton = () => {
       paddingLeft={0}
       pressStyle={{ opacity: 0.5 }}
       onPress={router.back}
-      icon={<Feather name="chevron-left" size={20} color="#776E26" />}></Button>
+      icon={<Feather name="chevron-left" size={20} color="#bf322c" />}></Button>
   );
 };
