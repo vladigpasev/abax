@@ -69,7 +69,7 @@ export default function Join() {
                 // Handle the API response
                 console.log(data);
                 if (data.guide) {
-                    while (router.canGoBack()) { router.back() } router.replace("/guide");
+                    router.replace("/guideLogin");
                 }
                 if (data.success === true) {
                     setSuccess(data.success);

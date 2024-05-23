@@ -22,7 +22,7 @@ function Index() {
 
   return (
     <SafeAreaProvider>
-      <Stack.Screen options={{headerShown: false}} />
+      <Stack.Screen options={{ headerShown: false }} />
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView
           height="100%"

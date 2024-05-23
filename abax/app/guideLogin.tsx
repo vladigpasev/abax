@@ -4,7 +4,7 @@ import { Input, YGroup } from 'tamagui'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from "expo-router";
 
-const Login = () => {
+const GuideLogin = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -55,7 +55,7 @@ const Login = () => {
                     };
                     saveToken();
                     //router.replace('/group');
-                    while (router.canGoBack()) { router.back() } router.replace("/guide/groups");
+                    while (router.canGoBack()) { router.back() } router.replace("/guideAllGroups");
                 } else {
                     setErrorMsg(data.message);
                 }
@@ -101,4 +101,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default GuideLogin
