@@ -25,8 +25,7 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="group" options={{ title: 'Информация за група', headerRight: () => <SignOutBtn /> }} />
             <Stack.Screen name="join" options={{ title: 'Присъедини се', headerLeft: () => <BackButton /> }} />
-            <Stack.Screen name="guideLogin" options={{ title: 'Вход като гид', headerLeft: () => <BackButton /> }} />
-            <Stack.Screen name="guideAllGroups" options={{ title: 'Моите групи', headerRight: () => <SignOutBtn /> }} />
+            <Stack.Screen name="(guideView)" options={{ headerShown: false }} />
           </Stack>
         </ThemeProvider>
       </TamaguiProvider>
