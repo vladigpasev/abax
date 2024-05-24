@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, YStack, ScrollView, Button } from 'tamagui';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,36 +17,12 @@ import {
   XStack,
 } from 'tamagui';
 import { useLocalSearchParams } from 'expo-router';
+import { PostGuideContext } from '@/context/PostGuideContext';
 
 // Dummy data
-const posts = [
-  {
-    id: 1,
-    title: "Group Meeting",
-    content: "There will be a group meeting on Monday at 10 AM.",
-    date: "2024-05-20",
-    time: "10:00",
-    uploader: "John Doe"
-  },
-  {
-    id: 2,
-    title: "Project Update",
-    content: "The project has been updated with new requirements.",
-    date: "2024-05-22",
-    time: "14:00",
-    uploader: "John Doe"
-  },
-  {
-    id: 3,
-    title: "Maintenance Notice",
-    content: "The system will undergo maintenance on Friday.",
-    date: "2024-05-24",
-    time: "18:00",
-    uploader: "John Doe"
-  }
-]
 
-const Post = ({ title, content, date, time, uploader }: any) => {
+
+const Post = ({ title, content, date, uploader }: any) => {
   return (
     <YStack
       borderColor="#ddd"
@@ -63,7 +39,7 @@ const Post = ({ title, content, date, time, uploader }: any) => {
         {content}
       </Text>
       <Text color="#555" fontSize={14}>
-        {date} at {time}
+        {date}
       </Text>
       <Text color="#555" fontSize={14} marginTop={10}>
         Uploader: {uploader}
@@ -72,7 +48,7 @@ const Post = ({ title, content, date, time, uploader }: any) => {
   )
 }
 
-const DialogInstance = (groupUuid:any) => {
+const DialogInstance = (groupUuid: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [showSubmitButton, setShowSubmitButton] = useState(false);
@@ -103,7 +79,7 @@ const DialogInstance = (groupUuid:any) => {
     // Example:
     fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/guides/add_post`, {
       method: 'POST',
-      body: JSON.stringify({ title, description, groupUuid:groupUuid.groupUuid }),
+      body: JSON.stringify({ title, description, groupUuid: groupUuid.groupUuid }),
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json' // Ensure content type is set
@@ -234,13 +210,16 @@ const DialogInstance = (groupUuid:any) => {
 };
 
 const Index = () => {
+  const posts = useContext(PostGuideContext);
   const { groupUuid } = useLocalSearchParams();
   return (
     <ScrollView padding={20}>
-      <DialogInstance groupUuid={groupUuid}/>
-      {posts.map(post => (
-        <Post key={post.id} title={post.title} content={post.content} date={post.date} time={post.time} uploader={post.uploader} />
-      ))}
+      <View paddingBottom={90}>
+        <DialogInstance groupUuid={groupUuid} />
+        {posts?.map(post => (
+          <Post key={post.id} title={post.title} content={post.description} date={post.updatedAt} uploader={post.uploaderName} />
+        ))}
+      </View>
     </ScrollView>
   )
 }

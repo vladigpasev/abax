@@ -2,6 +2,7 @@ import { BackButton } from "@/components/BackButton";
 import { SignOutBtn } from "@/components/SignOutBtn";
 import { GuideGroupsProvider } from "@/context/GuideGroupsContext";
 import { GuideTouristsProvider } from "@/context/GuideTouristsContext";
+import { PostGuideProvider } from "@/context/PostGuideContext";
 import { Slot, Stack, useLocalSearchParams } from "expo-router";
 
 export default function GuideViewLayout() {
@@ -17,17 +18,19 @@ export default function GuideViewLayout() {
 
     return (
         <GuideTouristsProvider groupUuid={groupUuidString}>
-            <Stack
-                screenOptions={{
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                    headerBackTitleVisible: false,
-                }}>
-                    
-                <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-                <Stack.Screen name="[touristUuid]" options={{ title: 'Информация за турист', headerLeft: () => <BackButton />, headerRight: () => <SignOutBtn /> }} />
-            </Stack>
+            <PostGuideProvider groupUuid={groupUuidString}>
+                <Stack
+                    screenOptions={{
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                        headerBackTitleVisible: false,
+                    }}>
+
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="[touristUuid]" options={{ title: 'Информация за турист', headerLeft: () => <BackButton />, headerRight: () => <SignOutBtn /> }} />
+                </Stack>
+            </PostGuideProvider>
         </GuideTouristsProvider>
     )
 }

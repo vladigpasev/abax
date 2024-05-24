@@ -17,7 +17,7 @@ const Participants = () => {
   });
 
   return (
-    <View>
+    <View paddingBottom={90}>
       <Input
         placeholder="Search by name, reservation number, or phone number"
         value={searchQuery}
