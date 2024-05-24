@@ -28,7 +28,6 @@ export default function TabLayout() {
     }
 
     return (
-        <GuideTouristsProvider groupUuid={groupUuid}>
             <Tabs
                 screenOptions={{
                     tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -61,6 +60,5 @@ export default function TabLayout() {
                     }}
                 />
             </Tabs>
-        </GuideTouristsProvider>
     );
 }

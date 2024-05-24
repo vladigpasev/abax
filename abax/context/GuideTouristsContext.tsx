@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface GuideTourists {
     id: number;
+    uuid: string;
     group_id: string;
     reservation_number: string;
     participant_name: string;

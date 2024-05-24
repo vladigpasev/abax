@@ -16,6 +16,18 @@ export default function GuideViewLayout() {
     }
 
     return (
-            <Slot />
+        <GuideTouristsProvider groupUuid={groupUuidString}>
+            <Stack
+                screenOptions={{
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    headerBackTitleVisible: false,
+                }}>
+                    
+                <Stack.Screen name="(tabs)" options={{headerShown: false}} />
+                <Stack.Screen name="[touristUuid]" options={{ title: 'Информация за турист', headerLeft: () => <BackButton />, headerRight: () => <SignOutBtn /> }} />
+            </Stack>
+        </GuideTouristsProvider>
     )
 }
