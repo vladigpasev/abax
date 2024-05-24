@@ -33,7 +33,7 @@ const GuideLogin = () => {
     const authenticateGuide = () => {
         // Make the API request here using the code
         // Example:
-        fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/guides/login`, {
+        fetch(`https://6f01-149-62-209-222.ngrok-free.app/api/guides/login`, {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: {

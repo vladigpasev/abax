@@ -26,7 +26,7 @@ export const GuideGroupsProvider: React.FC<GuideGroupsProviderProps> = ({ childr
             try {
                 const accessToken = await AsyncStorage.getItem('accessToken');
                 if (accessToken) {
-                    const response = await fetch('https://5e98-149-62-207-222.ngrok-free.app/api/guides/get_groups', {
+                    const response = await fetch('https://6f01-149-62-209-222.ngrok-free.app/api/guides/get_groups', {
                         method: 'POST',  // Ensure the correct HTTP method is used
                         headers: {
                             'Authorization': `Bearer ${accessToken}`,

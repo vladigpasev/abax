@@ -11,7 +11,7 @@ export const GroupProvider = ({ children }: { children?: React.ReactNode }) => {
             try {
                 const accessToken = await AsyncStorage.getItem('accessToken');
                 if (accessToken) {
-                    const response = await fetch('https://5e98-149-62-207-222.ngrok-free.app/api/group-info', {
+                    const response = await fetch('https://6f01-149-62-209-222.ngrok-free.app/api/group-info', {
                         method: 'POST',  // Ensure the correct HTTP method is used
                         headers: {
                             'Authorization': `Bearer ${accessToken}`,

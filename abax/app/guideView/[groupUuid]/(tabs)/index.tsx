@@ -19,10 +19,16 @@ import {
 import { useLocalSearchParams } from 'expo-router';
 import { PostGuideContext } from '@/context/PostGuideContext';
 
-// Dummy data
-
 
 const Post = ({ title, content, date, uploader }: any) => {
+  const localDate = new Date(date).toLocaleString('bg', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
   return (
     <YStack
       borderColor="#ddd"
@@ -39,10 +45,10 @@ const Post = ({ title, content, date, uploader }: any) => {
         {content}
       </Text>
       <Text color="#555" fontSize={14}>
-        {date}
+        {localDate}
       </Text>
       <Text color="#555" fontSize={14} marginTop={10}>
-        Uploader: {uploader}
+        Качено от: {uploader}
       </Text>
     </YStack>
   )
@@ -77,7 +83,7 @@ const DialogInstance = (groupUuid: any) => {
     setIsSubmitting(true); // Set submitting state to true
     // Make the API request here using the code
     // Example:
-    fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/guides/add_post`, {
+    fetch(`https://6f01-149-62-209-222.ngrok-free.app/api/guides/add_post`, {
       method: 'POST',
       body: JSON.stringify({ title, description, groupUuid: groupUuid.groupUuid }),
       headers: {

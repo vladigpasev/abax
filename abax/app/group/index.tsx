@@ -1,33 +1,16 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, YStack, ScrollView, Button } from 'tamagui'
 import { Entypo } from '@expo/vector-icons';
+import { PostsContext } from '@/context/PostsContext';
 
-// Dummy data
-const posts = [
-  {
-    id: 1,
-    title: "Group Meeting",
-    content: "There will be a group meeting on Monday at 10 AM.",
-    date: "2024-05-20",
-    time: "10:00"
-  },
-  {
-    id: 2,
-    title: "Project Update",
-    content: "The project has been updated with new requirements.",
-    date: "2024-05-22",
-    time: "14:00"
-  },
-  {
-    id: 3,
-    title: "Maintenance Notice",
-    content: "The system will undergo maintenance on Friday.",
-    date: "2024-05-24",
-    time: "18:00"
-  }
-]
-
-const Post = ({ title, content, date, time }:any) => {
+const Post = ({ title, content, date, uploader }: any) => {
+  const localDate = new Date(date).toLocaleString('bg', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
   return (
     <YStack
       borderColor="#ddd"
@@ -44,18 +27,23 @@ const Post = ({ title, content, date, time }:any) => {
         {content}
       </Text>
       <Text color="#555" fontSize={14}>
-        {date} at {time}
+        {localDate}
+      </Text>
+      <Text color="#555" fontSize={14} marginTop={10}>
+        Качено от: {uploader}
       </Text>
     </YStack>
   )
 }
 
 const Index = () => {
+  const posts = useContext(PostsContext);
+
   return (
     <ScrollView padding={20}>
-      <Button alignSelf="center" icon={<Entypo name="plus" size={24} color="#fff" />} size="$6" backgroundColor={'#bf322c'} color={'#fff'} marginBottom={10}>Добави известие</Button>
-      {posts.map(post => (
-        <Post key={post.id} title={post.title} content={post.content} date={post.date} time={post.time} />
+      <Text fontSize={20} fontWeight={'bold'} paddingBottom={10}>Новини</Text>
+      {posts?.map(post => (
+        <Post key={post.id} title={post.title} content={post.description} date={post.updatedAt} uploader={post.uploaderName} />
       ))}
     </ScrollView>
   )

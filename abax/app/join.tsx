@@ -57,7 +57,7 @@ export default function Join() {
     const findGroup = (code: string) => {
         // Make the API request here using the code
         // Example:
-        fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/find`, {
+        fetch(`https://6f01-149-62-209-222.ngrok-free.app/api/find`, {
             method: 'POST',
             body: JSON.stringify({ joinCode: code }),
             headers: {
@@ -88,7 +88,7 @@ export default function Join() {
     const joinGroup = () => {
         // Make the API request here using the code
         // Example:
-        fetch(`https://5e98-149-62-207-222.ngrok-free.app/api/add-participant`, {
+        fetch(`https://6f01-149-62-209-222.ngrok-free.app/api/add-participant`, {
             method: 'POST',
             body: JSON.stringify({ fullName, phone, email, joinCode: code, resNumber }),
             headers: {

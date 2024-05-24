@@ -17,7 +17,7 @@ const Participants = () => {
   });
 
   return (
-    <View paddingBottom={90}>
+    <View>
       <Input
         placeholder="Search by name, reservation number, or phone number"
         value={searchQuery}
@@ -32,11 +32,13 @@ const Participants = () => {
         }}
       />
       <ScrollView height={'100%'}>
-        <YGroup alignSelf="center" bordered width={'100%'} size="$5" separator={<Separator />}>
-          {filteredTourists?.map((tourist: GuideTourists, index: number) => (
-            <TouristListComponent key={index} tourist={tourist} />
-          ))}
-        </YGroup>
+        <View paddingBottom={90}>
+          <YGroup alignSelf="center" bordered width={'100%'} size="$5" separator={<Separator />}>
+            {filteredTourists?.map((tourist: GuideTourists, index: number) => (
+              <TouristListComponent key={index} tourist={tourist} />
+            ))}
+          </YGroup>
+        </View>
       </ScrollView>
     </View>
   );

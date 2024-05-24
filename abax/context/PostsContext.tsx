@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export interface PostGuide {
+export interface Posts {
     id: number;
     uuid: string;
     group_id: string;
@@ -12,36 +12,35 @@ export interface PostGuide {
     uploaderName?: string;
 }
 
-type PostGuideContextType = PostGuide[] | null;
+type PostsContextType = Posts[] | null;
 
-export const PostGuideContext = createContext<PostGuideContextType>(null);
+export const PostsContext = createContext<PostsContextType>(null);
 
 interface GuideGroupsProviderProps {
     children: ReactNode;
-    groupUuid: string;
 }
 
-export const PostGuideProvider: React.FC<GuideGroupsProviderProps> = ({ children, groupUuid }) => {
-    const [posts, setPosts] = useState<PostGuideContextType>(null);
+export const PostsProvider: React.FC<GuideGroupsProviderProps> = ({ children }) => {
+    const [posts, setPosts] = useState<PostsContextType>(null);
 
     const fetchGroupsInfo = async () => {
         try {
             const accessToken = await AsyncStorage.getItem('accessToken');
             if (accessToken) {
-                const response = await fetch('https://6f01-149-62-209-222.ngrok-free.app/api/guides/get_posts', {
+                const response = await fetch('https://6f01-149-62-209-222.ngrok-free.app/api/get_posts', {
                     method: 'POST',  // Ensure the correct HTTP method is used
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'application/json' // Ensure content type is set
                     },
-                    body: JSON.stringify({ groupUuid })  // Include the groupUuid in the body
+                    body: JSON.stringify({})  // Include the groupUuid in the body
                 });
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data: { post: PostGuide, guideName: string }[] = await response.json();
+                const data: { post: Posts, guideName: string }[] = await response.json();
                 console.log('Group posts information:', data);
 
                 // Map the response data to include uploaderName in each post
@@ -58,18 +57,17 @@ export const PostGuideProvider: React.FC<GuideGroupsProviderProps> = ({ children
     };
 
     useEffect(() => {
-        fetchGroupsInfo();  // Initial fetch
+        fetchGroupsInfo();
+        
+        const intervalId = setInterval(fetchGroupsInfo, 120000); // 120000ms = 2 minutes
 
-        const intervalId = setInterval(() => {
-            fetchGroupsInfo();
-        }, 120000);  // 120000 ms = 2 minutes
-
-        return () => clearInterval(intervalId);  // Cleanup interval on unmount
-    }, [groupUuid]);  // Add groupUuid as a dependency
+        // Cleanup the interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
-        <PostGuideContext.Provider value={posts}>
+        <PostsContext.Provider value={posts}>
             {children}
-        </PostGuideContext.Provider>
+        </PostsContext.Provider>
     );
 };
