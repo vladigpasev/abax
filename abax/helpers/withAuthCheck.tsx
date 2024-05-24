@@ -19,7 +19,7 @@ export function withAuthCheck(Component: any) {
 
           if (token) {
             if (guide) {
-              router.replace('/guideAllGroups');
+              router.replace('/guideView/guideAllGroups');
             } else {
               router.replace('/group');
             }

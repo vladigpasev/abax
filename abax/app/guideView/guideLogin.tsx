@@ -55,7 +55,7 @@ const GuideLogin = () => {
                     };
                     saveToken();
                     //router.replace('/group');
-                    while (router.canGoBack()) { router.back() } router.replace("/guideAllGroups");
+                    while (router.canGoBack()) { router.back() } router.replace("/guideView/guideAllGroups");
                 } else {
                     setErrorMsg(data.message);
                 }

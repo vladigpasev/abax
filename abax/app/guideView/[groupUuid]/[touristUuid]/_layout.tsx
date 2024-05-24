@@ -15,8 +15,8 @@ export default function GuideViewLayout() {
                     },
                     headerBackTitleVisible: false,
                 }}>
-                <Stack.Screen name="guideAllGroups" options={{ title: 'Моите групи', headerRight: () => <SignOutBtn /> }} />
-                <Stack.Screen name="guideLogin" options={{ title: 'Вход като гид', headerLeft: () => <BackButton /> }} />
+                <Stack.Screen name="index" options={{ title: 'Информация за турист', headerRight: () => <SignOutBtn />, headerLeft: () => <BackButton /> }} />
+                
             </Stack>
         </GuideGroupsProvider>
     )

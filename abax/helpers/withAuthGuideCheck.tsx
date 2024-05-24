@@ -19,12 +19,12 @@ export function withAuthGuideCheck(Component: any) {
 
           if (token) {
             if (guide) {
-              router.replace('/guideAllGroups');
+              router.replace('/guideView/guideAllGroups');
             } else {
               router.replace('/group');
             }
           } else {
-            router.replace('/guideLogin');
+            router.replace('/guideView/guideLogin');
           }
         } catch (error) {
           console.error('Error checking token:', error);

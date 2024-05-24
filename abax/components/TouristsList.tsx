@@ -5,19 +5,19 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { Link } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
-const ListItemComponent = ({ group }: any) => {
+const TouristListComponent = ({ tourist }: any) => {
     const colorScheme = useColorScheme();
     const iconColor = colorScheme === 'dark' ? 'white' : 'black';
 
     return (
         <YGroup.Item>
-            <Link href={'/guideView/' + group.uuid} asChild push>
+            <Link href={'/guideView/' + tourist.group_id + '/' + tourist.uuid} asChild push>
                 <ListItem
                     hoverTheme
                     pressTheme
-                    title={group.groupName}
-                    subTitle={`Departure: ${group.departure}`}
-                    icon={<MaterialIcons name="group" size={24} color={iconColor} />}
+                    title={tourist.participant_name}
+                    subTitle={`Номер на резервация: ${tourist.reservation_number}`}
+                    icon={<MaterialIcons name="person" size={24} color={iconColor} />}
                     iconAfter={<EvilIcons name="chevron-right" size={24} color={iconColor} />}
                 />
             </Link>
@@ -25,4 +25,4 @@ const ListItemComponent = ({ group }: any) => {
     );
 };
 
-export default ListItemComponent;
+export default TouristListComponent;
