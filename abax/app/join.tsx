@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Input, Text, View, YGroup } from 'tamagui'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNotification } from "@/context/NotificationContext";
 
 export default function Join() {
     const [code, setCode] = useState('');
@@ -84,13 +85,13 @@ export default function Join() {
                 setErrorMsg('An error occurred. Please try again.');
             });
     };
-
+    const { expoPushToken } = useNotification();
     const joinGroup = () => {
         // Make the API request here using the code
         // Example:
         fetch(`https://6f01-149-62-209-222.ngrok-free.app/api/add-participant`, {
             method: 'POST',
-            body: JSON.stringify({ fullName, phone, email, joinCode: code, resNumber }),
+            body: JSON.stringify({ fullName, phone, email, joinCode: code, resNumber, expoPushToken }),
             headers: {
                 'Content-Type': 'application/json'
             }

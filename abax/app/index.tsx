@@ -1,9 +1,14 @@
-import { OfferCard } from "@/components/OfferCard";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, View } from "tamagui";
-import JoinSvg from "@/components/JoinSvg";
-import { Link, Stack } from "expo-router";
-import { withAuthCheck } from "@/helpers/withAuthCheck";
+// Index.js
+
+import React, { useEffect, useRef } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View, Text, Button } from 'tamagui';
+import JoinSvg from '@/components/JoinSvg';
+import { Link, Stack } from 'expo-router';
+import { withAuthCheck } from '@/helpers/withAuthCheck';
+import { OfferCard } from '@/components/OfferCard';
+import { useNotification } from '@/context/NotificationContext'; // Импорт на хука за нотификации
+import * as Notifications from 'expo-notifications';
 
 function Index() {
   const offers = [
@@ -19,6 +24,24 @@ function Index() {
     },
     // Add more offers here
   ];
+
+  const { requestPermissions, permissionsGranted } = useNotification(); // Вземане на функцията за искане на разрешения и състоянието на разрешенията от контекста
+
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    requestPermissions(); // Искане на разрешение за нотификации
+
+    return () => {
+      notificationListener.current &&
+        Notifications.removeNotificationSubscription(
+          notificationListener.current,
+        );
+      responseListener.current &&
+        Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   return (
     <SafeAreaProvider>
